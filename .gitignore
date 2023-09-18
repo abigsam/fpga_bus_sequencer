@@ -1,0 +1,7 @@
+.Xil/
+vivado_mlite_7010/*
+mlite_7010/*
+
+*.log
+*.jou
+*.dmp
