@@ -1,0 +1,86 @@
+;**************************************************************************************************
+; This is example for pseudo-asembler file
+;**************************************************************************************************
+;
+; Avaliable instructions:
+; STOP
+; WAIT 0x00
+; CMP 0x00
+; CMP_LAST 0x00
+; CMP_JMP _label_name
+; PAUSE
+; UNCOND_JMP _label_name
+; NOP
+;**************************************************************************************************
+; NOTE: before using bus instruction, set bus type using configuration
+;       command: .start_i2c OR .start_spi
+;       You can use only one bus configuration per file!
+;
+;**************************************************************************************************
+; Avaliable I2C bus instructuon:
+; I2C_START_WRITE 0x00
+; I2C_START_READ  0x00
+; I2C_STOP
+; I2C_SEND 0x00
+; I2C_RECEIVE_ACK
+; I2C_RECEIVE_NACK
+; 
+; 
+;**************************************************************************************************
+; Avaliable I2C bus instructuon:
+; SPI_TRANSFER 0x00 -- Full-duplex transfer
+; SPI_HD_WRITE 0x00 -- Half-duplex write (unsupported)
+; SPI_HD_READ       -- Half-duplex read (unsupported)
+; 
+; 
+;**************************************************************************************************
+; Constants:
+; CONSTANT_NAME equ 0x00
+;
+; Jump label:
+; 1) label name should starts from underscore '_'
+; 2) 
+;
+;**************************************************************************************************
+
+SLV1_ADDR equ 0x07
+SLV2_ADDR equ 0x08
+
+SLV1_REG0_ADDR  equ 0x01
+SLV1_REG0_DATA  equ 0xFF
+
+SLV2_REG9_ADDR  equ 0x09
+SLV2_REG9_DATA  equ 0xBC
+
+
+.start_i2c
+;.start_spi
+    NOP
+    ; Configure slave #1
+    I2C_START_WRITE     SLV1_ADDR ;  I2C slave #1 address, write transaction
+    ; Write to the REG0
+    I2C_SEND            SLV1_REG0_ADDR
+    I2C_SEND            SLV1_REG0_DATA
+    I2C_STOP
+    WAIT 0x77
+
+_repeat_rd:
+    ; Read from slave #2
+    I2C_START_WRITE     SLV2_ADDR
+    ; Send register address
+    I2C_SEND            SLV2_REG9_ADDR
+    ; Generate restart
+    I2C_START_READ      SLV2_ADDR
+    I2C_RECEIVE_NACK
+
+    ; Compare received byte value, if equal jump to the end
+    CMP_JMP _seq_end
+    ; Else
+    WAIT 0x7c
+    UNCOND_JMP _repeat_rd
+
+_seq_end:
+    NOP
+    STOP
+
+.stop
