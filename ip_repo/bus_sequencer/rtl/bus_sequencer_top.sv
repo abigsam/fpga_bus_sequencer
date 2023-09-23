@@ -1,17 +1,18 @@
+`include "bus_sequencer_pkg.svh"
 
-
-module bus_sequencer #(
+module bus_sequencer_top #(
     parameter int PIN_DIR_TO_OUTPUT = 0,
-    parameter int ADDRESS_WIDTH     = 8,
+    // parameter int ADDRESS_WIDTH     = 8,
+    parameter int ROM_WORDS_DEPTH   = 16,
     parameter BUS_TYPE              = "I2C",        //Can be "I2C", "SPI"   
-    parameter INIT_FILE_NAME        = ""
+    parameter INIT_FILE_NAME        = "test.mem"
 )(
     input  logic clk_i,
     input  logic nrst_i,
 
     //Control inputs
     input  logic start_i,
-    input  logic [ADDRESS_WIDTH-1 : 0] start_addr_i,
+    input  logic [31 : 0] start_addr_i,
     output logic ready_o,
 
     //Bus read data
@@ -39,7 +40,10 @@ module bus_sequencer #(
 );
 
 //Local parameters ********************************************************************************
-localparam int ROM_DATA_WIDTH = protocol_sequncer_pkg::get_word_width();
+localparam int ROM_DATA_WIDTH = bus_sequencer_pkg::get_word_width();
+localparam int ROM_ADDR_WIDTH = $clog2(ROM_WORDS_DEPTH);
+localparam int DEFAULT_ADDR_WIDTH = 32;
+localparam int JMP_VALUE_WIDTH = bus_sequencer_pkg::get_jmp_width();
 
 
 //Check parameters ********************************************************************************
@@ -54,33 +58,68 @@ initial begin
         $error("bus_sequencer_error: parameter BUS_TYPE can be SPI, I2C. But received %0s", BUS_TYPE);
         $finish();
     end
+    if ($clog2(ROM_WORDS_DEPTH) > DEFAULT_ADDR_WIDTH) begin
+        $error("bus_sequencer_error: unsupported number of ROM words --> %0d", ROM_WORDS_DEPTH);
+        $finish();
+    end
 end
 
 
 //Variables ***************************************************************************************
-logic rom_rden_o;
-logic [ROM_DATA_WIDTH-1 : 0] rom_data_i;
-logic [ADDRESS_WIDTH-1 : 0] rom_addr_o;
+logic rom_rden;
+logic [ROM_DATA_WIDTH-1 : 0] rom_data;
+logic [DEFAULT_ADDR_WIDTH-1 : 0] rom_addr;
+//From decoder
+logic [JMP_VALUE_WIDTH-1 : 0] jmp_value;
+logic jmp_dir_up, jmp_en;
+bus_sequencer_pkg::cmd_t cmd_type;
+bus_sequencer_pkg::instr_t instr_type;
+bus_sequencer_pkg::instr_data_t instr_data;
 
 
 //ROM with sequnce ********************************************************************************
 rom #(
-    .ADDRESS_WIDTH(ADDRESS_WIDTH),
+    .ROM_DEPTH(ROM_WORDS_DEPTH),
     .DATA_WIDTH(ROM_DATA_WIDTH),
     .INIT_FILE_NAME(INIT_FILE_NAME)
 ) rom_inst (
-    .addr_i(rom_addr_o),
-    .rden_i(rom_rden_o),
-    .data_o(rom_data_i),
+    .addr_i(rom_addr),
+    .rden_i(rom_rden),
+    .data_o(rom_data),
+    .*
+);
+
+//ROM reader **************************************************************************************
+rom_reader #(
+    .ROM_DEPTH(ROM_WORDS_DEPTH),
+    .JMP_WIDTH(JMP_VALUE_WIDTH)
+) rom_reader_inst (
+    .load_start_i(),
+    .jmp_value_i(jmp_value),
+    .jmp_dir_up_i(jmp_dir_up),
+    .jmp_en_i(jmp_en),
+    .read_next_i(read_next),
+    .rom_addr_o(rom_addr),
     .*
 );
 
 
-//ROM reader **************************************************************************************
-bus_sequencer_reader #(
-    .ROM_DATA_WIDTH(ROM_DATA_WIDTH),
-    .BUS_TYPE(BUS_TYPE)
-) bus_sequencer_reader_inst (
+//Word decoder ***********************************************************************************
+decoder #()
+decoder_inst (
+    .word_i(rom_data),
+    .*
+);
+
+
+//Main FSM ****************************************************************************************
+sequencer_fsm sequencer_fsm_inst (
+    .read_next_o(),
+    .cmd_type_i(cmd_type),
+    .instr_type_i(instr_type),
+    .instr_data_i(instr_data),
+    .rom_word_ready_i(),
+    .bus_done_i(),
     .*
 );
 

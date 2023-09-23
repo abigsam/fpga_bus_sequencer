@@ -1,6 +1,7 @@
+`ifndef __BUS_SEQUENCER_PKG
+`define __BUS_SEQUENCER_PKG
 
-
-package protocol_sequncer_pkg
+package bus_sequencer_pkg;
 
     //Common types ********************************************************************************
     typedef enum logic { 
@@ -16,7 +17,7 @@ package protocol_sequncer_pkg
         INSTR_PAUSE         = 3'h4,
         INSTR_UNCOND_JMP    = 3'h5,
         INSTR_UNUSED1       = 3'h6,
-        INSTR_UNUSED2       = 3'h7,
+        INSTR_UNUSED2       = 3'h7
     } instr_t;
 
     typedef enum logic { 
@@ -63,23 +64,51 @@ package protocol_sequncer_pkg
     typedef struct packed {
         instr_data_t data;
         transfer_config_ut cnfg;
-        cmd_t cmd_type;
     } bus_transfer_word_t;
 
     typedef struct packed {
         instr_data_t data;
         instr_config_ut cnfg;
         instr_t instruction;
-        cmd_t cmd_type;
     } instr_word_t;
 
     typedef union packed {
-        instr_word_t instruction;
-        bus_transfer_word_t bus_transfer;
+        instr_word_t instr_word;
+        bus_transfer_word_t bus_word;
     } word_ut;
 
+    typedef struct packed {
+        word_ut code;
+        cmd_t cmd_type;
+    } seq_word_t;
+
+
+
+    //Functions ***********************************************************************************
     function int get_word_width();
-        return $bits(word_ut);
+        return $bits(seq_word_t);
+    endfunction
+
+    function int get_jmp_width();
+        return $bits(instr_data_t);
+    endfunction
+    
+    function cmd_t get_word_type(input seq_word_t in_word);
+        return in_word.cmd_type;
+    endfunction
+
+    function instr_t get_instruction_type(input seq_word_t in_word);
+        return in_word.code.instr_word.instruction;
+    endfunction
+
+    function instr_data_t get_instruction_data(input seq_word_t in_word);
+        return in_word.code.instr_word.data;
+    endfunction
+
+    function logic is_bus_transfer(input seq_word_t in_word);
+        return (in_word.cmd_t == RUN_TRANSFER);
     endfunction
 
 endpackage
+
+`endif //__BUS_SEQUENCER_PKG
