@@ -4,7 +4,10 @@ module bus_sequencer_top #(
     parameter int PIN_DIR_TO_OUTPUT = 0,
     parameter int ROM_WORDS_DEPTH   = 16,
     parameter BUS_TYPE              = "I2C",        //Can be "I2C", "SPI"   
-    parameter INIT_FILE_NAME        = "all_nop.mem"
+    parameter INIT_FILE_NAME        = "all_nop.mem",
+    parameter int SPI_CPOL          = 0,
+    parameter int SPI_CPHA          = 0,
+    parameter int I2C_SLV_ADDR      = 0
 )(
     input  logic clk_i,
     input  logic nrst_i,
