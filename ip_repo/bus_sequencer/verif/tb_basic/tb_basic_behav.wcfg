@@ -13,14 +13,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
-      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+      <ZoomEndTime time="1,145.000 ns"></ZoomEndTime>
+      <Cursor1Time time="1,145.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="288"></NameColumnWidth>
-      <ValueColumnWidth column_width="97"></ValueColumnWidth>
+      <NameColumnWidth column_width="285"></NameColumnWidth>
+      <ValueColumnWidth column_width="163"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="4" />
+   <WVObjectSize size="9" />
    <wvobject fp_name="/tb_basic/clk_i" type="logic">
       <obj_property name="ElementShortName">clk_i</obj_property>
       <obj_property name="ObjectShortName">clk_i</obj_property>
@@ -61,7 +61,6 @@
       <wvobject fp_name="group43" type="group">
          <obj_property name="label">SPI</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_basic/DUT/spi_sclk_o" type="logic">
             <obj_property name="ElementShortName">spi_sclk_o</obj_property>
             <obj_property name="ObjectShortName">spi_sclk_o</obj_property>
@@ -82,7 +81,6 @@
       <wvobject fp_name="group42" type="group">
          <obj_property name="label">I2C</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/tb_basic/DUT/i2c_scl_o" type="logic">
             <obj_property name="ElementShortName">i2c_scl_o</obj_property>
             <obj_property name="ObjectShortName">i2c_scl_o</obj_property>
@@ -112,7 +110,6 @@
    <wvobject fp_name="group44" type="group">
       <obj_property name="label">internal</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_basic/DUT/rom_rden" type="logic">
          <obj_property name="ElementShortName">rom_rden</obj_property>
          <obj_property name="ObjectShortName">rom_rden</obj_property>
@@ -160,6 +157,223 @@
       <wvobject fp_name="/tb_basic/DUT/rom_data_rdy" type="logic">
          <obj_property name="ElementShortName">rom_data_rdy</obj_property>
          <obj_property name="ObjectShortName">rom_data_rdy</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider37">
+      <obj_property name="label">Modules</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="group36" type="group">
+      <obj_property name="label">rom</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_basic/DUT/rom_inst/clk_i" type="logic">
+         <obj_property name="ElementShortName">clk_i</obj_property>
+         <obj_property name="ObjectShortName">clk_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_inst/addr_i" type="array">
+         <obj_property name="ElementShortName">addr_i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">addr_i[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_inst/rden_i" type="logic">
+         <obj_property name="ElementShortName">rden_i</obj_property>
+         <obj_property name="ObjectShortName">rden_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_inst/data_o" type="array">
+         <obj_property name="ElementShortName">data_o[12:0]</obj_property>
+         <obj_property name="ObjectShortName">data_o[12:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_inst/data_reg" type="array">
+         <obj_property name="ElementShortName">data_reg[12:0]</obj_property>
+         <obj_property name="ObjectShortName">data_reg[12:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_inst/rom_arr" type="array">
+         <obj_property name="ElementShortName">rom_arr[0:15][12:0]</obj_property>
+         <obj_property name="ObjectShortName">rom_arr[0:15][12:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_inst/rd_addr" type="array">
+         <obj_property name="ElementShortName">rd_addr[3:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_addr[3:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group45" type="group">
+      <obj_property name="label">rom_reader</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/clk_i" type="logic">
+         <obj_property name="ElementShortName">clk_i</obj_property>
+         <obj_property name="ObjectShortName">clk_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/nrst_i" type="logic">
+         <obj_property name="ElementShortName">nrst_i</obj_property>
+         <obj_property name="ObjectShortName">nrst_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/load_start_i" type="logic">
+         <obj_property name="ElementShortName">load_start_i</obj_property>
+         <obj_property name="ObjectShortName">load_start_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/read_next_i" type="logic">
+         <obj_property name="ElementShortName">read_next_i</obj_property>
+         <obj_property name="ObjectShortName">read_next_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/jmp_value_i" type="array">
+         <obj_property name="ElementShortName">jmp_value_i[7:0]</obj_property>
+         <obj_property name="ObjectShortName">jmp_value_i[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/jmp_dir_up_i" type="logic">
+         <obj_property name="ElementShortName">jmp_dir_up_i</obj_property>
+         <obj_property name="ObjectShortName">jmp_dir_up_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/jmp_en_i" type="logic">
+         <obj_property name="ElementShortName">jmp_en_i</obj_property>
+         <obj_property name="ObjectShortName">jmp_en_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/start_addr_i" type="array">
+         <obj_property name="ElementShortName">start_addr_i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">start_addr_i[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/rom_addr_o" type="array">
+         <obj_property name="ElementShortName">rom_addr_o[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rom_addr_o[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/rom_data_rdy_o" type="logic">
+         <obj_property name="ElementShortName">rom_data_rdy_o</obj_property>
+         <obj_property name="ObjectShortName">rom_data_rdy_o</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/addr_cnt" type="array">
+         <obj_property name="ElementShortName">addr_cnt[3:0]</obj_property>
+         <obj_property name="ObjectShortName">addr_cnt[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/jmp_addr_next" type="array">
+         <obj_property name="ElementShortName">jmp_addr_next[3:0]</obj_property>
+         <obj_property name="ObjectShortName">jmp_addr_next[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/rom_reader_inst/addr_next" type="array">
+         <obj_property name="ElementShortName">addr_next[3:0]</obj_property>
+         <obj_property name="ObjectShortName">addr_next[3:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group60" type="group">
+      <obj_property name="label">decoder</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/word_i" type="array">
+         <obj_property name="ElementShortName">word_i[12:0]</obj_property>
+         <obj_property name="ObjectShortName">word_i[12:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/cmd_type" type="other">
+         <obj_property name="ElementShortName">cmd_type</obj_property>
+         <obj_property name="ObjectShortName">cmd_type</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/instr_type" type="array">
+         <obj_property name="ElementShortName">instr_type[2:0]</obj_property>
+         <obj_property name="ObjectShortName">instr_type[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/instr_data" type="array">
+         <obj_property name="ElementShortName">instr_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">instr_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/jmp_value" type="array">
+         <obj_property name="ElementShortName">jmp_value[7:0]</obj_property>
+         <obj_property name="ObjectShortName">jmp_value[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/jmp_dir_up" type="logic">
+         <obj_property name="ElementShortName">jmp_dir_up</obj_property>
+         <obj_property name="ObjectShortName">jmp_dir_up</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/jmp_en" type="logic">
+         <obj_property name="ElementShortName">jmp_en</obj_property>
+         <obj_property name="ObjectShortName">jmp_en</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/in_word" type="array">
+         <obj_property name="ElementShortName">in_word</obj_property>
+         <obj_property name="ObjectShortName">in_word</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/current_instr" type="array">
+         <obj_property name="ElementShortName">current_instr[2:0]</obj_property>
+         <obj_property name="ObjectShortName">current_instr[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/is_instruction" type="logic">
+         <obj_property name="ElementShortName">is_instruction</obj_property>
+         <obj_property name="ObjectShortName">is_instruction</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group71" type="group">
+      <obj_property name="label">sequencer_fsm</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="group89" type="group">
+         <obj_property name="label">IOs</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/clk_i" type="logic">
+            <obj_property name="ElementShortName">clk_i</obj_property>
+            <obj_property name="ObjectShortName">clk_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/nrst_i" type="logic">
+            <obj_property name="ElementShortName">nrst_i</obj_property>
+            <obj_property name="ObjectShortName">nrst_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/start_i" type="logic">
+            <obj_property name="ElementShortName">start_i</obj_property>
+            <obj_property name="ObjectShortName">start_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/ready_o" type="logic">
+            <obj_property name="ElementShortName">ready_o</obj_property>
+            <obj_property name="ObjectShortName">ready_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/load_start_addr_o" type="logic">
+            <obj_property name="ElementShortName">load_start_addr_o</obj_property>
+            <obj_property name="ObjectShortName">load_start_addr_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/read_next_o" type="logic">
+            <obj_property name="ElementShortName">read_next_o</obj_property>
+            <obj_property name="ObjectShortName">read_next_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/cmd_type_i" type="other">
+            <obj_property name="ElementShortName">cmd_type_i</obj_property>
+            <obj_property name="ObjectShortName">cmd_type_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/instr_type_i" type="array">
+            <obj_property name="ElementShortName">instr_type_i[2:0]</obj_property>
+            <obj_property name="ObjectShortName">instr_type_i[2:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/instr_data_i" type="array">
+            <obj_property name="ElementShortName">instr_data_i[7:0]</obj_property>
+            <obj_property name="ObjectShortName">instr_data_i[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/rom_data_rdy_i" type="logic">
+            <obj_property name="ElementShortName">rom_data_rdy_i</obj_property>
+            <obj_property name="ObjectShortName">rom_data_rdy_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/bus_done_i" type="logic">
+            <obj_property name="ElementShortName">bus_done_i</obj_property>
+            <obj_property name="ObjectShortName">bus_done_i</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group90" type="group">
+         <obj_property name="label">Internal</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/state" type="array">
+            <obj_property name="ElementShortName">state[7:0]</obj_property>
+            <obj_property name="ObjectShortName">state[7:0]</obj_property>
+            <obj_property name="CustomSignalColor">#FF0080</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/rom_read_next_reg" type="logic">
+            <obj_property name="ElementShortName">rom_read_next_reg</obj_property>
+            <obj_property name="ObjectShortName">rom_read_next_reg</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/ready_reg" type="logic">
+            <obj_property name="ElementShortName">ready_reg</obj_property>
+            <obj_property name="ObjectShortName">ready_reg</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/load_start_addr_reg" type="logic">
+            <obj_property name="ElementShortName">load_start_addr_reg</obj_property>
+            <obj_property name="ObjectShortName">load_start_addr_reg</obj_property>
+         </wvobject>
+         <wvobject fp_name="/tb_basic/DUT/sequencer_fsm_inst/wait_cnt" type="array">
+            <obj_property name="ElementShortName">wait_cnt[7:0]</obj_property>
+            <obj_property name="ObjectShortName">wait_cnt[7:0]</obj_property>
+         </wvobject>
       </wvobject>
    </wvobject>
 </wave_config>

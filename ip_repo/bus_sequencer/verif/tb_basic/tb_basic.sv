@@ -9,7 +9,7 @@ module tb_basic ();
 localparam int PIN_DIR_TO_OUTPUT = 0;
 localparam int ROM_WORDS_DEPTH   = 16;
 localparam BUS_TYPE              = "I2C";
-localparam INIT_FILE_NAME        = "test.mem";
+localparam INIT_FILE_NAME        = "all_nop.mem";
 //
 
 
@@ -43,7 +43,20 @@ initial begin
     nrst_i = '1;
     {clk_i, start_i, start_addr_i, spi_miso_i, i2c_scl_i, i2c_sda_i} = '0;
 
-    
+    #50ns;
+    nrst_i = '0;
+    #50ns;
+    @(posedge clk_i) nrst_i <= '1;
+
+    while (ready_o !== 1'b1) begin
+        @(posedge clk_i);
+    end
+
+    @(posedge clk_i) begin
+        start_addr_i <= `ROM_START_ADDR;
+        start_i <= '1;
+    end
+    @(posedge clk_i) start_i <= '0;
 
     #1us;
     $finish();

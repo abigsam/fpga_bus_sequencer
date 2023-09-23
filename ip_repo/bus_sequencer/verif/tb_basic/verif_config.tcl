@@ -10,7 +10,7 @@ set verif_name          [file tail ${verif_script_path}]
 
 
 #Create verification/simulation ###################################################################
-puts "\[SCRIPT\]: configure verification test ${verif_name}"
+puts "\[SCRIPT\] Configure verification test ${verif_name}"
 
 create_fileset -simset ${verif_name}
 
