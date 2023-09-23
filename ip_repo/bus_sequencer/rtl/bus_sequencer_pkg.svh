@@ -10,14 +10,14 @@ package bus_sequencer_pkg;
     } cmd_t;
 
     typedef enum logic [2:0] {
-        INSTR_WAIT          = 3'h0,
-        INSTR_COMPARE       = 3'h1,
-        INSTR_COMP_JMP      = 3'h2,
-        INSTR_STOP          = 3'h3,
+        INSTR_STOP          = 3'h0,
+        INSTR_WAIT          = 3'h1,
+        INSTR_COMPARE       = 3'h2,
+        INSTR_COMP_JMP      = 3'h3,
         INSTR_PAUSE         = 3'h4,
         INSTR_UNCOND_JMP    = 3'h5,
-        INSTR_UNUSED1       = 3'h6,
-        INSTR_UNUSED2       = 3'h7
+        INSTR_NOP1          = 3'h6,
+        INSTR_NOP2          = 3'h7
     } instr_t;
 
     typedef enum logic { 

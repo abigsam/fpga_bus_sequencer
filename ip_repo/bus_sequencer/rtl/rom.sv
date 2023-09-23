@@ -20,7 +20,7 @@ logic [DATA_WIDTH-1 : 0] rom_arr [ROM_DEPTH];
 logic [ADDR_WIDTH-1 : 0] rd_addr;
 
 initial begin
-    $readmemb(INIT_FILE_NAME, rom_arr);
+    $readmemb(INIT_FILE_NAME, rom_arr, 0, ROM_DEPTH-1);
 end
 
 always_comb rd_addr <= addr_i[ADDR_WIDTH-1 : 0];

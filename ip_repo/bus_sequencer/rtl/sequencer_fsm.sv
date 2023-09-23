@@ -47,6 +47,7 @@ always_ff @(posedge clk_i) begin
         state <= IDLE;
         {rom_read_next_reg, ready_reg, wait_cnt, load_start_addr_reg} <= '0;
     end else begin
+        {rom_read_next_reg, load_start_addr_reg} <= '0;
         case(state)
 
             IDLE: begin

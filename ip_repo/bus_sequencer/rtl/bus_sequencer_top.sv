@@ -4,7 +4,7 @@ module bus_sequencer_top #(
     parameter int PIN_DIR_TO_OUTPUT = 0,
     parameter int ROM_WORDS_DEPTH   = 16,
     parameter BUS_TYPE              = "I2C",        //Can be "I2C", "SPI"   
-    parameter INIT_FILE_NAME        = "test.mem"
+    parameter INIT_FILE_NAME        = "all_nop.mem"
 )(
     input  logic clk_i,
     input  logic nrst_i,
@@ -101,6 +101,7 @@ rom_reader #(
     .read_next_i(read_next),
     .rom_addr_o(rom_addr),
     .rom_data_rdy_o(rom_data_rdy),
+    .rom_rden_o(rom_rden),
     .*
 );
 
