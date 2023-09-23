@@ -2,7 +2,6 @@
 
 module bus_sequencer_top #(
     parameter int PIN_DIR_TO_OUTPUT = 0,
-    // parameter int ADDRESS_WIDTH     = 8,
     parameter int ROM_WORDS_DEPTH   = 16,
     parameter BUS_TYPE              = "I2C",        //Can be "I2C", "SPI"   
     parameter INIT_FILE_NAME        = "test.mem"
@@ -69,6 +68,7 @@ end
 logic rom_rden;
 logic [ROM_DATA_WIDTH-1 : 0] rom_data;
 logic [DEFAULT_ADDR_WIDTH-1 : 0] rom_addr;
+logic load_start_addr;
 //From decoder
 logic [JMP_VALUE_WIDTH-1 : 0] jmp_value;
 logic jmp_dir_up, jmp_en;
@@ -94,12 +94,13 @@ rom_reader #(
     .ROM_DEPTH(ROM_WORDS_DEPTH),
     .JMP_WIDTH(JMP_VALUE_WIDTH)
 ) rom_reader_inst (
-    .load_start_i(),
+    .load_start_i(load_start_addr),
     .jmp_value_i(jmp_value),
     .jmp_dir_up_i(jmp_dir_up),
     .jmp_en_i(jmp_en),
     .read_next_i(read_next),
     .rom_addr_o(rom_addr),
+    .rom_data_rdy_o(rom_data_rdy),
     .*
 );
 
@@ -114,11 +115,12 @@ decoder_inst (
 
 //Main FSM ****************************************************************************************
 sequencer_fsm sequencer_fsm_inst (
-    .read_next_o(),
+    .load_start_addr_o(load_start_addr),
+    .read_next_o(read_next),
     .cmd_type_i(cmd_type),
     .instr_type_i(instr_type),
     .instr_data_i(instr_data),
-    .rom_word_ready_i(),
+    .rom_data_rdy_i(rom_data_rdy),
     .bus_done_i(),
     .*
 );

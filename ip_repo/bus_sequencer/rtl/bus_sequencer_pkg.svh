@@ -106,7 +106,7 @@ package bus_sequencer_pkg;
     endfunction
 
     function logic is_bus_transfer(input seq_word_t in_word);
-        return (in_word.cmd_t == RUN_TRANSFER);
+        return (in_word.cmd_type == RUN_TRANSFER);
     endfunction
 
 endpackage

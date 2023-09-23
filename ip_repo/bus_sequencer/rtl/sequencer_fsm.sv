@@ -10,6 +10,7 @@ module sequencer_fsm import bus_sequencer_pkg::*; #(
     output logic ready_o,
 
     //ROM
+    output logic load_start_addr_o,
     output logic read_next_o,
     //From decoder
     input  cmd_t cmd_type_i,
@@ -17,13 +18,13 @@ module sequencer_fsm import bus_sequencer_pkg::*; #(
     input  instr_data_t instr_data_i,
 
 
-    input  logic rom_word_ready_i,
+    input  logic rom_data_rdy_i,
     input  logic bus_done_i
 
 );
 
 //Variables ***************************************************************************************
-logic rom_read_next_reg = '0, ready_reg = '0;
+logic rom_read_next_reg = '0, ready_reg = '0, load_start_addr_reg = '0;
 instr_data_t wait_cnt;
 
 
@@ -44,7 +45,7 @@ fsm_t state = IDLE;
 always_ff @(posedge clk_i) begin
     if (!nrst_i) begin
         state <= IDLE;
-        {rom_read_next_reg, ready_reg, wait_cnt} <= '0;
+        {rom_read_next_reg, ready_reg, wait_cnt, load_start_addr_reg} <= '0;
     end else begin
         case(state)
 
@@ -52,13 +53,14 @@ always_ff @(posedge clk_i) begin
                 ready_reg <= '1;
                 if (start_i) begin
                     ready_reg <= '0;
-                    rom_read_next_reg <= '1;
+                    load_start_addr_reg <= '1;
                     state <= ROM_READ;
                 end
             end
 
             ROM_READ: begin
-                state <= CHEK_CMD_WORD;
+                if (rom_data_rdy_i)
+                    state <= CHEK_CMD_WORD;
             end
 
             CHEK_CMD_WORD: begin
@@ -121,6 +123,7 @@ end
 
 //Outputs *****************************************************************************************
 always_comb read_next_o <= rom_read_next_reg;
+always_comb load_start_addr_o <= load_start_addr_reg;
 always_comb ready_o     <= ready_reg;
 
 endmodule
