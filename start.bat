@@ -24,12 +24,20 @@ ECHO Avaliable options:
 ECHO [1] Make project for AMD Vivado
 ECHO [2] Cleanup Git repository
 ECHO [3] Exit
+rem ECHO [4] Test Python
 ECHO.
 
+rem CHOICE /C 1234 /N /M "Enter your choice:"
+rem IF ERRORLEVEL 4 GOTO TEST_PYTHON
 CHOICE /C 123 /N /M "Enter your choice:"
 IF ERRORLEVEL 3 GOTO END
 IF ERRORLEVEL 2 GOTO RUN_CLEANUP_PRJ
 IF ERRORLEVEL 1 GOTO MAIN_MENU_AMD_START
+
+:TEST_PYTHON
+python .\ip_repo\bus_sequencer\python\probe.py test1 test2
+pause
+goto END
 
 :MAIN_MENU_AMD_START
 set menu_type="menu_board_amd"

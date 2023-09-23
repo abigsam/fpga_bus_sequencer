@@ -70,3 +70,19 @@ proc findFilesNested {basedir pattern} {
 
     return $fileList
 }
+
+# vivado_add_files
+# Add files to the Vivado project
+# files        - list of files
+# fileset_name - Vivado file set name
+# file_type    - file type, can be left empty
+proc vivado_add_files {files fileset_name file_type} {
+    if {${files} != {}} {
+        add_files -norecurse -fileset ${fileset_name} ${files}
+        update_compile_order -fileset ${fileset_name}
+        if {${file_type} != {}} {
+            set_property FILE_TYPE ${file_type} [get_files ${files}]
+            update_compile_order -fileset ${fileset_name}
+        }
+    }
+}
