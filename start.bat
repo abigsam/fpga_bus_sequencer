@@ -24,18 +24,23 @@ ECHO Avaliable options:
 ECHO [1] Make project for AMD Vivado
 ECHO [2] Cleanup Git repository
 ECHO [3] Exit
-rem ECHO [4] Test Python
+ECHO [4] Test Python
 ECHO.
 
-rem CHOICE /C 1234 /N /M "Enter your choice:"
-rem IF ERRORLEVEL 4 GOTO TEST_PYTHON
-CHOICE /C 123 /N /M "Enter your choice:"
+rem CHOICE /C 123 /N /M "Enter your choice:"
+
+CHOICE /C 1234 /N /M "Enter your choice:"
+IF ERRORLEVEL 4 GOTO TEST_PYTHON
 IF ERRORLEVEL 3 GOTO END
 IF ERRORLEVEL 2 GOTO RUN_CLEANUP_PRJ
 IF ERRORLEVEL 1 GOTO MAIN_MENU_AMD_START
 
+
 :TEST_PYTHON
-python .\ip_repo\bus_sequencer\python\probe.py test1 test2
+set pytho_path=.\ip_repo\bus_sequencer\python\parser_script.py
+set asm_src=.\sequence_prog.txt
+set python_out_folder=.\ip_repo\bus_sequencer\mem_files\
+CALL :RUN_PYTHON %pytho_path% %asm_src% %python_out_folder%
 pause
 goto END
 
@@ -135,4 +140,44 @@ EXIT /B 0
     pushd "%~dp0\%~1"
     call %vivado_vvgl_path% %vivado_bat_path% -project %prj_path%
     popd
+EXIT /B 0
+
+
+:RUN_PYTHON
+    echo Check if Python is installed...
+    python -V | find /v "Python" >NUL 2>NUL && (set python_exist=0)
+    python -V | find "Python"    >NUL 2>NUL && (set python_exist=1)
+
+    if %python_exist% EQU 0 (
+        echo Python is not found int PATH.
+        echo Please wisit https://www.python.org/downloads/windows/
+        pause
+        exit
+    )
+
+    if %python_exist% EQU 1 (
+        @REM for /f "delims=" %%V in (`python -V`) do @set ver=%%V
+        @REM echo Python version %ver% was found...
+    )
+
+    if not exist %~1 (
+        echo ERROR! Script file %~1 did not found
+        pause
+        exit
+    )
+
+    if not exist %~2 (
+        echo ERROR! Assembler source file %~1 did not found
+        pause
+        exit
+    )
+
+    if "%~3"=="" (
+        echo ERROR! Specify output path
+        pause
+        exit
+    )
+
+    python %~1 %~2 %~3
+
 EXIT /B 0
