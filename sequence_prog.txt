@@ -43,19 +43,19 @@
 ;
 ;**************************************************************************************************
 
-SLV1_ADDR equ 0x07
-SLV2_ADDR equ 0x08
+SLV1_ADDR equ 0x07                                      ;
+SLV2_ADDR equ 0x08 ; sdfsfwefw
 
-SLV1_REG0_ADDR  equ 0x01
-SLV1_REG0_DATA  equ 0xFF
+SLV1_REG0_ADDR  equ 0x01; sefsef
+SLV1_REG0_DATA  equ 0xFF;FDEWFsdf
 
-SLV2_REG9_ADDR  equ 0x09
-SLV2_REG9_DATA  equ 0xBC
+SLV2_REG9_ADDR  equ 0x09;f
+SLV2_REG9_DATA  equ 0xBC;
 
 
 .start_i2c
 ;.start_spi
-    NOP
+    NOP; sdfsdf
     ; Configure slave #1
     I2C_START_WRITE     SLV1_ADDR ;  I2C slave #1 address, write transaction
     ; Write to the REG0

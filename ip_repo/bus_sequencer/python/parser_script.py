@@ -19,8 +19,17 @@ if (len(sys.argv) < 3):
 asm_src = os.path.abspath(sys.argv[1])
 memout_path = os.path.abspath(sys.argv[2])
 
-
 #Read input file
-list = parser_read_file(asm_src, "no print file")
+src_str = parser_read_file(asm_src, "no print file")
 
 
+#Check tokenizer
+# token_list = parser_get_tokens(src_str)
+# token_analysys(token_list)
+
+#Run parsing
+parsering_program(src_str)
+
+
+# test_arpeggio(True)
+# tree = test_arpeggio(src_str)
