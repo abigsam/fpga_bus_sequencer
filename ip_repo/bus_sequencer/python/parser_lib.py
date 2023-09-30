@@ -371,7 +371,7 @@ def local_parse_labels(src_str):
 ###################################################################################################
 #Python Left-Right Parser
 ###################################################################################################
-def parsering_program(src_str):
+def parser_parse(src_str):
     print("[PARSER] Run parsing...")
     
     #Parse text
@@ -380,9 +380,21 @@ def parsering_program(src_str):
     cmd_list = local_parse_commands(src_str)
     label_list = local_parse_labels(src_str)
 
-
+    return {"constants"  : const_dict,
+            "bus_define" : bus_type,
+            "commands"   : cmd_list,
+            "labels"     : label_list
+            }
 ###################################################################################################
 
+
+
+###################################################################################################
+# Builder
+###################################################################################################
+def parser_build(parsed_dict):
+    print("[PARSER] Run builder...")
+    
 
 
 ###################################################################################################

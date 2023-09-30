@@ -22,14 +22,11 @@ memout_path = os.path.abspath(sys.argv[2])
 #Read input file
 src_str = parser_read_file(asm_src, "no print file")
 
-
-#Check tokenizer
-# token_list = parser_get_tokens(src_str)
-# token_analysys(token_list)
-
 #Run parsing
-parsering_program(src_str)
+parsed_dict = parser_parse(src_str)
 
+#Convert parsed file to the binary
+parser_build(parsed_dict)
 
 # test_arpeggio(True)
 # tree = test_arpeggio(src_str)
