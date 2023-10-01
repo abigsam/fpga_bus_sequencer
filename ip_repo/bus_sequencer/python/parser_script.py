@@ -24,9 +24,6 @@ src_str = parser_read_file(asm_src, "no print file")
 
 #Run parsing
 parsed_dict = parser_parse(src_str)
-
-#Convert parsed file to the binary
-parser_build(parsed_dict)
-
-# test_arpeggio(True)
-# tree = test_arpeggio(src_str)
+if (parsed_dict != 0):
+    #Convert parsed file to the binary
+    parser_build(parsed_dict, memout_path)

@@ -26,8 +26,8 @@ package bus_sequencer_pkg;
     } instr_compare_conf_t;
 
     typedef enum logic { 
-        JUMP_UP = 1'b1,
-        JUMP_DOWN = 1'b0
+        JUMP_FORWARD = 1'b0,
+        JUMP_BACK    = 1'b1
     } instr_jmp_config_t;
 
     typedef logic [7:0] instr_data_t;
