@@ -74,7 +74,7 @@ logic [DEFAULT_ADDR_WIDTH-1 : 0] rom_addr;
 logic load_start_addr;
 //From decoder
 logic [JMP_VALUE_WIDTH-1 : 0] jmp_value;
-logic jmp_dir_up, jmp_en;
+logic jmp_back, jmp_en;
 bus_sequencer_pkg::cmd_t cmd_type;
 bus_sequencer_pkg::instr_t instr_type;
 bus_sequencer_pkg::instr_data_t instr_data;
@@ -99,7 +99,7 @@ rom_reader #(
 ) rom_reader_inst (
     .load_start_i(load_start_addr),
     .jmp_value_i(jmp_value),
-    .jmp_dir_up_i(jmp_dir_up),
+    .jmp_dir_up_i(jmp_back),
     .jmp_en_i(jmp_en),
     .read_next_i(read_next),
     .rom_addr_o(rom_addr),

@@ -1,0 +1,22 @@
+//************************************************************* 
+// File name:  sequence_prog.mem
+// Init type:  binary
+// Bus type:   start_i2c
+// Word width: 13 bits
+// Data:       2023-10-02 11:32:40
+//************************************************************* 
+0000000001100 //HEX[000c] -> NOP (line # 57)
+0000011101011 //HEX[00eb] -> I2C_START_WRITE 7 (line # 59)
+0000000101001 //HEX[0029] -> I2C_SEND 1 (line # 61)
+1111111101001 //HEX[1fe9] -> I2C_SEND 255 (line # 62)
+0000000000101 //HEX[0005] -> I2C_STOP (line # 63)
+0111011100010 //HEX[0ee2] -> WAIT 119 (line # 64)
+0000100001011 //HEX[010b] -> I2C_START_WRITE 8 (line # 68)
+0000100101001 //HEX[0129] -> I2C_SEND 9 (line # 70)
+0000100000011 //HEX[0103] -> I2C_START_READ 8 (line # 72)
+0000000000001 //HEX[0001] -> I2C_RECEIVE_NACK (line # 73)
+0000001100110 //HEX[0066] -> CMP_JMP 3 (line # 76)
+0111110000010 //HEX[0f82] -> WAIT 124 (line # 78)
+0000011011010 //HEX[00da] -> UNCOND_JMP -6 (line # 79)
+0000000001100 //HEX[000c] -> NOP (line # 82)
+0000000000000 //HEX[0000] -> STOP (line # 83)

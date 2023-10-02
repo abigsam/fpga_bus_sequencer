@@ -130,9 +130,9 @@
          <obj_property name="ElementShortName">jmp_value[7:0]</obj_property>
          <obj_property name="ObjectShortName">jmp_value[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_basic/DUT/jmp_dir_up" type="logic">
-         <obj_property name="ElementShortName">jmp_dir_up</obj_property>
-         <obj_property name="ObjectShortName">jmp_dir_up</obj_property>
+      <wvobject fp_name="/tb_basic/DUT/jmp_back" type="logic">
+         <obj_property name="ElementShortName">jmp_back</obj_property>
+         <obj_property name="ObjectShortName">jmp_back</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_basic/DUT/jmp_en" type="logic">
          <obj_property name="ElementShortName">jmp_en</obj_property>
@@ -276,9 +276,9 @@
          <obj_property name="ElementShortName">jmp_value[7:0]</obj_property>
          <obj_property name="ObjectShortName">jmp_value[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_basic/DUT/decoder_inst/jmp_dir_up" type="logic">
-         <obj_property name="ElementShortName">jmp_dir_up</obj_property>
-         <obj_property name="ObjectShortName">jmp_dir_up</obj_property>
+      <wvobject fp_name="/tb_basic/DUT/decoder_inst/jmp_back" type="logic">
+         <obj_property name="ElementShortName">jmp_back</obj_property>
+         <obj_property name="ObjectShortName">jmp_back</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_basic/DUT/decoder_inst/jmp_en" type="logic">
          <obj_property name="ElementShortName">jmp_en</obj_property>

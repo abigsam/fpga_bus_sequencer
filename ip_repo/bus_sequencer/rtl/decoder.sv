@@ -15,7 +15,7 @@ module decoder import bus_sequencer_pkg::*; #(
 
     //JMP command
     output logic [get_jmp_width()-1 : 0] jmp_value,
-    output logic jmp_dir_up,
+    output logic jmp_back,
     output logic jmp_en
 
 
@@ -38,9 +38,9 @@ always_comb instr_data <= get_instruction_data(in_word);
 
 
 //Outputs *****************************************************************************************
-always_comb jmp_value  <= in_word.code.instr_word.data;
-always_comb jmp_dir_up <= in_word.code.instr_word.cnfg.jmp_dir == JUMP_UP;
-always_comb jmp_en     <= is_instruction && ((INSTR_COMP_JMP == current_instr) || (INSTR_UNCOND_JMP == current_instr));
+always_comb jmp_value <= in_word.code.instr_word.data;
+always_comb jmp_back  <= in_word.code.instr_word.cnfg.jmp_dir == JUMP_BACK;
+always_comb jmp_en    <= is_instruction && ((INSTR_COMP_JMP == current_instr) || (INSTR_UNCOND_JMP == current_instr));
 
 
 endmodule
