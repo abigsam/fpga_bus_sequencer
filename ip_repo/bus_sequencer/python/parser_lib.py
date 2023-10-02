@@ -578,7 +578,7 @@ def local_build_convert_to_hex(commands_list):
         tmp |= (instr << 1) & 0x1e
         if instr_type == "TRANSFER":
             tmp |= 0x01
-        return hex(tmp)
+        return tmp
 
     for cmd_arg in commands_list:
         match cmd_arg[0]:
@@ -631,41 +631,54 @@ def local_build_convert_to_hex(commands_list):
     #
     return hex_list
 
-def local_build_write_meminit(hex_list, commands_list, init_type, bit_width, outfile_path):
+def local_build_write_meminit(value_list, commands_list, init_type, bit_width, file_handler):
 
-    def hex_to_bin(hex_str, bit_width):
-        bin_s = bin(int(hex_str, 16))[2:]
+    def to_bin_str(value, bit_width):
+        bin_s = bin(value)[2:]
         if len(bin_s) < bit_width:
             bin_s = "0"*(bit_width - len(bin_s)) + bin_s
         return bin_s
     
+    def to_hex_str(value, bit_width):
+        hex_s = hex(value)[2:]
+        hex_width = bit_width//4 + 1 if bit_width%4 else 0
+        if len(hex_s) < hex_width:
+            hex_s = "0"*(hex_width - len(hex_s)) + hex_s
+        return hex_s
+    
     def list_to_str(list):
         olist = ""
-        for item in list:
+        for item in list[:-1]:
             olist += str(item) if isinstance(item, int) else item
             olist += " "
+        olist += "(line # " + str(list[-1]) + ")"
         return olist
     
-    fw = open(outfile_path, 'w')
     cnt = 0
-    for hex in hex_list:
-        cmd_code = hex if init_type == "hex" else hex_to_bin(hex, bit_width)
-        # print(commands_list[cnt])
-        line  = cmd_code + " //HEX[" + hex + "] -> "
-        line += list_to_str(commands_list[cnt]) + "\n"
-        fw.write(line)
+    for value in value_list:
+        cmd_code = to_hex_str(value, bit_width) if init_type == "hex" else to_bin_str(value, bit_width)
+        line  = cmd_code + " "
+        if init_type == "binary":
+            line += "//HEX[" + to_hex_str(value, bit_width)
+        else:
+            line += "//BIN[" + to_bin_str(value, bit_width)
+        line += "] -> " + list_to_str(commands_list[cnt]) + "\n"
+        file_handler.write(line)
 
         cnt += 1
-
-    fw.close()
+    
 
 ###################################################################################################
 
 ###################################################################################################
 # Builder
+# init_type : can be "hex" or "binary"
 ###################################################################################################
-def parser_build(parsed_dict, out_file_path):
+def parser_build(parsed_dict, init_type, out_file_path):
+    from datetime import datetime
+
     print("[BUILDER] Run builder...")
+    command_width_bits = 13
     #Check for bus
     bus_type = local_builder_check_bus(parsed_dict["bus_define"])
     if bus_type == "":
@@ -680,7 +693,16 @@ def parser_build(parsed_dict, out_file_path):
     hex_list = local_build_convert_to_hex(parsed_dict["commands"])
     
     #Write to the file
-    local_build_write_meminit(hex_list, parsed_dict["commands"], "binary", 13, out_file_path)
+    fw = open(out_file_path, 'w')
+    fw.write("//************************************************************* \n")
+    fw.write("// File name:  " + os.path.basename(out_file_path) + "\n")
+    fw.write("// Init type:  " + init_type + "\n")
+    fw.write("// Bus type:   " + parsed_dict["bus_define"][0] + "\n")
+    fw.write("// Word width: " + str(command_width_bits) + " bits\n")
+    fw.write("// Data:       " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
+    fw.write("//************************************************************* \n")
+    local_build_write_meminit(hex_list, parsed_dict["commands"], init_type, command_width_bits, fw)
+    fw.close()
 
     print("[BUILDER] Build successfully ended")
     return 1

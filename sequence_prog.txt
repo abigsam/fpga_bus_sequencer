@@ -1,5 +1,5 @@
 ;**************************************************************************************************
- ; This is example for pseudo-asembler file
+; This is example for pseudo-asembler file
 ;**************************************************************************************************
 ;
 ; Avaliable instructions:
@@ -43,14 +43,14 @@
 ;
 ;**************************************************************************************************
 
-SLV1_ADDR equ 0x07                                      ;
-SLV2_ADDR equ 0x08 ; sdfsfwefw
+SLV1_ADDR equ 0x07
+SLV2_ADDR equ 0x08 ; Slave address 2
 
-SLV1_REG0_ADDR  equ 0x01; sefsef
-SLV1_REG0_DATA  equ 0xFF;FDEWFsdf
+SLV1_REG0_ADDR  equ 0x01; Slave 1 register 0
+SLV1_REG0_DATA  equ 0xFF
 
-SLV2_REG9_ADDR  equ 0x09;f
-SLV2_REG9_DATA  equ 0xBC;
+SLV2_REG9_ADDR  equ 0x09
+SLV2_REG9_DATA  equ 0xBC
 
 
 .start_i2c

@@ -19,6 +19,18 @@ if (len(sys.argv) < 3):
 asm_src = os.path.abspath(sys.argv[1])
 memout_path = os.path.abspath(sys.argv[2])
 
+#Check inputs
+if not os.path.isfile(asm_src) or not os.path.exists(asm_src):
+    print("[PARSER] Error: first argument should be input asm file, but it doesn't exist or not file: " + asm_src)
+    sys.exit()
+if not os.path.isdir(memout_path):
+    print("[PARSER] Error: second argument should be output folder name, but received: " + memout_path)
+    sys.exit()
+
+#Generate output file path
+out_file_path = os.path.join(memout_path, os.path.splitext(asm_src)[0].split(os.sep)[-1] + ".mem")
+
+
 #Read input file
 src_str = parser_read_file(asm_src, "no print file")
 
@@ -26,4 +38,4 @@ src_str = parser_read_file(asm_src, "no print file")
 parsed_dict = parser_parse(src_str)
 if (parsed_dict != 0):
     #Convert parsed file to the binary
-    parser_build(parsed_dict, memout_path)
+    parser_build(parsed_dict, "binary", out_file_path)

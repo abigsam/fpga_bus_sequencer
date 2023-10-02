@@ -39,8 +39,8 @@ IF ERRORLEVEL 1 GOTO MAIN_MENU_AMD_START
 :TEST_PYTHON
 set pytho_path=.\ip_repo\bus_sequencer\python\parser_script.py
 set asm_src=.\sequence_prog.txt
-set python_out_file=.\ip_repo\bus_sequencer\mem_files\sequence_prog.mem
-CALL :RUN_PYTHON %pytho_path% %asm_src% %python_out_file%
+set python_out_dir=.\ip_repo\bus_sequencer\mem_files\
+CALL :RUN_PYTHON %pytho_path% %asm_src% %python_out_dir%
 pause
 goto END
 
