@@ -16,10 +16,10 @@ create_fileset -simset ${verif_name}
 
 if {${verif_cnfg_add_sources} > {0}} {
     set_property SOURCE_SET sources_1 [get_filesets ${verif_name}]
+    update_compile_order -fileset ${verif_name}
 } else {
     set_property SOURCE_SET {} [get_filesets ${verif_name}]
 }
-update_compile_order -fileset ${verif_name}
 
 set files_sv   [findFiles ${verif_script_path} "*.sv"]
 set files_svh  [findFiles ${verif_script_path} "*.svh"]
