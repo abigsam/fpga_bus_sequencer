@@ -115,6 +115,15 @@ rem ###########################################################
     del "%~dp0\*.log"
 
     call %vivado_bat_path% -mode batch -nojournal -notrace -source %~1 -tclargs %~2 %~3 %~4 %~5
+
+    if %errorlevel% equ 0 (
+        echo Vivado executed script without errors
+    ) else (
+        echo Vivado return error: %ERRORLEVEL%
+        pause
+        exit
+    )
+
 EXIT /B 0
 
 
