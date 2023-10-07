@@ -53,7 +53,8 @@ module adder_4_bit_tb_top;
   /*********************starting the execution uvm phases**********************/
   //////////////////////////////////////////////////////////////////////////////
   initial begin
-    run_test();
+    // run_test();
+    run_test("adder_4_bit_basic_test");
   end
   //////////////////////////////////////////////////////////////////////////////
   /**********Set the Interface instance Using Configuration Database***********/

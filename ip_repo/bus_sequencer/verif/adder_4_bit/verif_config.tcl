@@ -23,14 +23,17 @@ set files_sv   [findFilesNested ${verif_script_path}/verif/ "*.sv"]
 set files_sv   [list {*}${files_sv} {*}[findFilesNested ${verif_script_path}/src/ "*.sv"]]
 set files_svh  [findFilesNested ${verif_script_path}/verif/ "*.svh"]
 set files_svh  [list {*}${files_svh} {*}[findFilesNested ${verif_script_path}/src/ "*.svh"]]
-# set files_wcfg [findFilesNested ${verif_script_path} "*.wcfg"]
+set files_wcfg [findFiles ${verif_script_path}/vawe/ "*.wcfg"]
 
 vivado_add_files ${files_sv}   ${verif_name} {}
 vivado_add_files ${files_svh}  ${verif_name} {}
+vivado_add_files ${files_wcfg} ${verif_name} {}
 update_compile_order -fileset ${verif_name}
 
 #Configure
-set_property -name {xsim.compile.xsc.more_options} -value {-L UVM} -objects [get_filesets ${verif_name}]
+# set_property -name {xsim.compile.xsc.more_options} -value {-L UVM} -objects [get_filesets ${verif_name}]
+set_property -name {xsim.compile.xvlog.more_options} -value {-L uvm} -objects [get_filesets ${verif_name}]
+set_property -name {xsim.elaborate.xelab.more_options} -value {-L uvm} -objects [get_filesets ${verif_name}]
 
 #End sequence
 update_compile_order -fileset ${verif_name}
