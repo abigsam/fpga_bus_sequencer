@@ -1,7 +1,7 @@
 ###################################################################################################
 # File: parser_script.py
 # Command:
-# python ./ip_repo/bus_sequencer/python/parser_script.py ./sequence_prog.txt null
+# python ./ip_repo/bus_sequencer/python/parser_script.py ./sequences/sequence_prog.txt null
 ###################################################################################################
 
 import sys
