@@ -1,10 +1,12 @@
 `include "bus_sequencer_pkg.svh"
 
 module bus_sequencer_top #(
-    parameter int PIN_DIR_TO_OUTPUT = 0,
+    parameter bit PIN_DIR_TO_OUTPUT = 1'b0,
     parameter int ROM_WORDS_DEPTH   = 16,
     parameter BUS_TYPE              = "I2C",        //Can be "I2C", "SPI"   
     parameter INIT_FILE_NAME        = "all_nop.mem",
+    parameter int INPUT_CLOCK_HZ    = 100000000,
+    parameter int SPI_SCLK_HZ       = 1000000,
     parameter int SPI_CPOL          = 0,
     parameter int SPI_CPHA          = 0,
     parameter int I2C_SLV_ADDR      = 0

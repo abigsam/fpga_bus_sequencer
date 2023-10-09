@@ -9,7 +9,8 @@ module tb_basic ();
 localparam int PIN_DIR_TO_OUTPUT = 0;
 localparam int ROM_WORDS_DEPTH   = 16;
 localparam BUS_TYPE              = "I2C";
-localparam INIT_FILE_NAME        = "all_nop.mem";
+// localparam INIT_FILE_NAME        = "all_nop.mem";
+localparam INIT_FILE_NAME        = "sequence_prog.mem";
 //
 
 

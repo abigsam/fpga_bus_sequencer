@@ -19,11 +19,9 @@ if {${verif_cnfg_add_sources} > {0}} {
 }
 
 #Add verification files
-set files_sv   [findFilesNested ${verif_script_path}/verif/ "*.sv"]
-set files_sv   [list {*}${files_sv} {*}[findFilesNested ${verif_script_path}/src/ "*.sv"]]
-set files_svh  [findFilesNested ${verif_script_path}/verif/ "*.svh"]
-set files_svh  [list {*}${files_svh} {*}[findFilesNested ${verif_script_path}/src/ "*.svh"]]
-set files_wcfg [findFiles ${verif_script_path}/wave/ "*.wcfg"]
+set files_sv    [findFilesNested ${verif_script_path}/ "*.sv"]
+set files_svh   [findFilesNested ${verif_script_path}/ "*.svh"]
+set files_wcfg  [findFiles ${verif_script_path}/wave/ "*.wcfg"]
 
 vivado_add_files ${files_sv}   ${verif_name} {}
 vivado_add_files ${files_svh}  ${verif_name} {}
@@ -31,9 +29,8 @@ vivado_add_files ${files_wcfg} ${verif_name} {}
 update_compile_order -fileset ${verif_name}
 
 #Configure
-set test_name "adder_4_bit_basic_test"
 set_property -name {xsim.simulate.xsim.more_options} \
-             -value "-testplusarg UVM_TESTNAME=${test_name} -testplusarg UVM_VERBOSITY=UVM_LOW" \
+             -value {-testplusarg UVM_TESTNAME=adder_4_bit_basic_test -testplusarg UVM_VERBOSITY=UVM_LOW} \
              -objects [get_filesets ${verif_name}]
 
 #End sequence
